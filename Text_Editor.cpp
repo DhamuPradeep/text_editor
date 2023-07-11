@@ -43,7 +43,7 @@ public:
 			cout<<"5. Print all\n6. Save into a .txt file\n7. Undo\n8. Open a .txt file\n9. Print the next page\n10. Print the previous page"<<endl;
 			cin>>choice;
 			cout<<endl;
-			if (choice == 1)			//Insertion of a line, any line, works fine
+			if (choice == 1)
 			{
 				int lineGiven;
 				string dataGiven;
@@ -80,14 +80,14 @@ public:
 					}
 				}
 			}
-			else if (choice == 2)		//Deletion of a line, any line, works fine
+			else if (choice == 2)		
 			{
 				int lineGiven;
 				cout<<"Enter the line you want to delete : ";
 				cin>>lineGiven;
 				deleteLine(lineGiven);
 			}
-			else if (choice == 3)		//Interchanging two lines, any two line, works fine
+			else if (choice == 3)		
 			{
 				int lineGiven1;
 				int lineGiven2;
@@ -114,13 +114,13 @@ public:
 					replaceTextInLine(dataGiven, lineGiven);
 				}
 			}
-			else if (choice == 5)		//Printing the whole list, works fine
+			else if (choice == 5)		
 			{
 				printall();
 				sleep_for(nanoseconds(1000));
 				sleep_until(system_clock::now() + 1s);
 			}
-			else if (choice == 6)		//Saving the list into a txt file, works fine
+			else if (choice == 6)		
 			{
 				saveAll();
 			}
@@ -152,11 +152,10 @@ public:
 				head = NULL;
 				openFile();
 			}
-			else if (choice == 9)        //Printing the next page
+			else if (choice == 9)        
 			{
 				if (prevPagePrinted*10 > numOfLines)
 				{
-					// cout<<"No more page left to print."<<endl;
 					printOnePage(prevPagePrinted);
 					sleep_for(nanoseconds(1000));
 					sleep_until(system_clock::now() + 1s);
@@ -175,7 +174,7 @@ public:
 					sleep_until(system_clock::now() + 1s);
 				}
 			}
-			else if (choice == 10)			//Printing the previous page
+			else if (choice == 10)			
 			{
 				if (prevPagePrinted <= 0)
 				{
@@ -200,8 +199,8 @@ public:
 			}
 		}
 	}
-	void addToHead(string dataGiven){		//this function will add to Head
-		if (head == NULL)					//no node, empty linked list
+	void addToHead(string dataGiven){		
+		if (head == NULL)				
 		{
 			node *temp;
 			temp = new node;
@@ -211,7 +210,7 @@ public:
 			tail = head;
 			numOfLines++;
 		}
-		else 								//one or more than one node
+		else 								
 		{
 			node *temp;
 			temp = new node;
@@ -227,8 +226,8 @@ public:
 		undoStack.push(adddedToHead);
 	}
 
-	void whateverAddToTail(string dataGiven){		//an extra function used to add to tail, had to implement to make Undo function work, ignore this one please
-		if (head == NULL)					//no node, empty linked list
+	void whateverAddToTail(string dataGiven){		
+		if (head == NULL)					
 		{
 			node *temp;
 			temp = new node;
@@ -250,7 +249,7 @@ public:
 		}
 	}
 
-	void whateverDeleteTail(){						//an extra function used to delete from tail, had to implement to make Undo function work,ignore this one please
+	void whateverDeleteTail(){					
 		node *temp = head;
 		if (head == NULL)
 		{
@@ -278,8 +277,8 @@ public:
 		}
 	}
 
-	void addToTail(string dataGiven){		//this function will add to Tail
-		if (head == NULL)					//no node, empty linked list
+	void addToTail(string dataGiven){		
+		if (head == NULL)					
 		{
 			node *temp;
 			temp = new node;
@@ -289,7 +288,7 @@ public:
 			tail = head;
 			numOfLines++;
 		}
-		else 								//one or more than one node
+		else 								
 		{
 			node *temp;
 			temp = new node;
@@ -305,7 +304,7 @@ public:
 		undoStack.push(addedToTail);
 	}
 
-	void deleteHead(){						//function used to delete the very first element, and update the head
+	void deleteHead(){						
 		string backup = head->data;
 		node *temp = head;
 		node *nextNode = head->next;
@@ -319,7 +318,7 @@ public:
 		undoStack.push(deletedHead);
 	}
 
-	void deleteTail(){						//function used to delete the very last element, and update the tail
+	void deleteTail(){				
 		node *temp = head;
 		if (head == NULL)
 		{
@@ -358,14 +357,14 @@ public:
 		}
 	}
 
-	void insertTextInBetween(string dataGiven, int lineGiven){		//this function will insert text in the given line, and will push all the other lines
+	void insertTextInBetween(string dataGiven, int lineGiven){	
 		if (lineGiven == 0)
 		{
 			cout<<"There's no line 0, did you mean 1 (cough...Google suggestions...cough)"<<endl;
 		}
 		else if (lineGiven == 1)
 		{
-			if (head == NULL)					//no node, empty linked list
+			if (head == NULL)				
 			{
 				node *temp;
 				temp = new node;
@@ -375,7 +374,7 @@ public:
 				tail = head;
 				numOfLines++;
 			}
-			else 								//one or more than one node
+			else 								
 			{
 				node *temp;
 				temp = new node;
@@ -417,7 +416,7 @@ public:
 		}
 	}
 
-	void replaceTextInLine(string dataGiven,int lineGiven){		//this function will overwrite anything written in the given line
+	void replaceTextInLine(string dataGiven,int lineGiven){		
 		undoCmd replacedLine;
 		if (numOfLines < lineGiven)
 		{
@@ -437,7 +436,7 @@ public:
 				goToLine++;
 			}
 			string backup = temp->data;
-			temp->data = dataGiven;		//change what is inside the node number that has been given as line parameter
+			temp->data = dataGiven;		
 			replacedLine.lineNumber = lineGiven;
 			replacedLine.text = backup;
 			replacedLine.commandNumber = 4;
@@ -445,7 +444,7 @@ public:
 		}
 	}
 
-	void deleteLine(int lineGiven){							//this function should delete anything in the given line, also decreases the numOfLines
+	void deleteLine(int lineGiven){							
 		if (head == NULL)
 		{
 			cout<<"There is no line to be deleted/removed."<<endl;
@@ -522,7 +521,7 @@ public:
 		}
 	}
 
-	void insertFurtherAway(string dataGiven, int lineGiven){		//will print /n lines if given line is larger than numOfLines
+	void insertFurtherAway(string dataGiven, int lineGiven){		
 		undoCmd insertedFurtherAway;
 		insertedFurtherAway.lineNumber = 0;
 		insertedFurtherAway.commandNumber = 9;
@@ -533,7 +532,6 @@ public:
 				whateverAddToTail("\n");
 				insertedFurtherAway.lineNumber++;
 			}
-			// insertedFurtherAway.lineNumber++;
 			whateverAddToTail(dataGiven);
 		}
 		else{
@@ -547,7 +545,7 @@ public:
 		undoStack.push(insertedFurtherAway);
 	}
 
-	void moveNtoM(int nLineGiven, int mLineGiven){		//function used to Move line N into line M
+	void moveNtoM(int nLineGiven, int mLineGiven){		
 		if (nLineGiven == 1)
 		{
 			string headText = head->data;
@@ -574,7 +572,7 @@ public:
 		undoStack.push(moveHeadToM);
 	}
 
-	void printOnePage(int pageGiven){						//function used to print only one page, only 10 or if there are less than 10 lines, it'll print only those lines
+	void printOnePage(int pageGiven){						
 		node *temp = head;
 		if (numOfLines < pageGiven*10)
 		{
@@ -610,7 +608,7 @@ public:
 		}
 	}
 
-	void openFile(){					//function used to open a file from the same folder this cpp file is in
+	void openFile(){					
 		string fileName;
 		cout<<"Enter the file name : ";
 		cin>>fileName;
@@ -625,7 +623,7 @@ public:
 		myfile.close();
 	}
 
-	void undo(){						//function used to undo the last action taken
+	void undo(){						
 		undoCmd temp = undoStack.top();
 		if (temp.commandNumber == 1)
 		{
@@ -751,10 +749,6 @@ public:
 		outfile.flush();
 		outfile.close();
 	}
-
-	// void numOfLinesp(){				//Will print the numOfLines, used for debugging
-	// 	cout<<numOfLines<<endl;
-	// }
 };
 
 int main()
